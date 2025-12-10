@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Bullet : MonoBehaviour
 {
@@ -15,8 +14,8 @@ public class Bullet : MonoBehaviour
         Enemy enemy = hitInfo.GetComponent<Enemy>();
         if (enemy != null)
         {
-            GameManager.score += Random.Range(5,10);
-            GameObject.Find("ScoreText").GetComponent<Text>().text = "Score: " + GameManager.score;
+            int scoreToAdd = Random.Range(5, 10);
+            GameEvents.OnEnemyKilled?.Invoke(scoreToAdd);
             
             Destroy(hitInfo.gameObject);
             Destroy(gameObject);

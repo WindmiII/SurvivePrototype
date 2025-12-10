@@ -9,9 +9,6 @@ public class PlayerController : MonoBehaviour
     public float bulletSpeed = 10f;
 
     public int health = 3;
-    public GameObject[] hearts;
-
-    public GameObject restartButton;
 
     void Update()
     {
@@ -46,25 +43,14 @@ public class PlayerController : MonoBehaviour
     {
         health--;
 
-        if (health >= 0 && health < hearts.Length)
-        {
-            hearts[health].SetActive(false);
-        }
+        GameEvents.OnPlayerDamaged?.Invoke(health);
 
         if (health <= 0)
         {
-            GameOver();
-        }
-    }
-
-    void GameOver()
-    {
-        Debug.Log("Game Over!");
-        Time.timeScale = 0;
-
-        if (restartButton != null) 
-        {
-            restartButton.SetActive(true);
+            GameEvents.OnGameOver?.Invoke();
+            
+            Debug.Log("Game Over!");
+            Time.timeScale = 0;
         }
     }
 }
