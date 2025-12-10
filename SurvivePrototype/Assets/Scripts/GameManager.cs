@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static int score = 0; 
-    
-    public GameObject enemyPrefab;
+    public EnemyFactory enemyFactory;
     public float spawnRate = 2f;
     private float nextSpawn = 0f;
 
@@ -22,11 +21,7 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        float randomX = Random.Range(-8f, 8f);
-        float randomY = Random.Range(-4f, 4f);
-        Vector2 spawnPos = new Vector2(randomX, randomY);
-
-        Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        enemyFactory.CreateEnemy();
     }
 
     public void RestartGame()
